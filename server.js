@@ -2,11 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const { authRoutes, performanceRoutes, paymentRoutes, bookingRoutes } = require("./routes/routesModule");
 const { tokenVerifyMiddleware } = require("./middlewares/tokenVerifyMiddleware");
+const { errorFormatMiddleware } = require("./middlewares/errorFormatMiddleware");
 
 const app = express();
 
+app.use(errorFormatMiddleware);
+
 app.use("/auth", authRoutes); // http://localhost:3001/auth
-app.use("/performance", tokenVerifyMiddleware, performanceRoutes);
+app.use("/performances", tokenVerifyMiddleware, performanceRoutes);
 app.use("/payment", tokenVerifyMiddleware, paymentRoutes);
 app.use("/booking", tokenVerifyMiddleware, bookingRoutes);
 
@@ -15,5 +18,6 @@ app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }));
+
 
 app.listen(3001);

@@ -6,7 +6,7 @@ const tokenVerifyMiddleware = (req, res, next) => {
     if (!token) {
         return res.status(401).json({
             success: false,
-            message: "토큰이 존재하지 않습니다.",
+            message: "TOKEN_NOT_EXIST",
         });
     }
 
@@ -15,7 +15,7 @@ const tokenVerifyMiddleware = (req, res, next) => {
     if (!decoded) {
         return res.status(401).json({
             success: false,
-            message: "유효하지 않은 토큰입니다.",
+            message: "INVALID_TOKEN",
         });
     }
 
